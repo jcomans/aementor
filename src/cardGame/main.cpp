@@ -39,8 +39,19 @@ int main(){
 
 		cout << endl << "Enter the number of players: ";
 		size_t n_players {abs(input_int())};
-		cout << endl << "Enter the number of cards per player (0 for all cards to be distributed): ";
-		size_t n_cards {abs(input_int())};
+		
+		//After feedback manual exception handling has been included for number of cards per player 
+		size_t max_cards {N/n_players};
+		size_t n_cards {};
+		bool check {false};
+		do {
+			cout << endl << "Enter the number of cards per player (0 for all cards to be distributed. Max allowed cards is " << max_cards << "): ";
+			n_cards = abs(input_int());
+			if (n_cards <= max_cards)
+				check = true;
+			else
+				cout << endl << "Invalid value! Please enter a value below " << max_cards + 1 << "." << endl;
+		} while (!check);
 	
 		cout << endl << "Assigning cards to players..." << endl << flush;
 		vector<vector<int>> deck_table {distribute_deck(n_players, n_cards, deck)};
